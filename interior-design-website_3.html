@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAINI — Interior Design Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F7F4EE;
+    --warm-white: #FDFBF8;
+    --sand: #E8E0D0;
+    --taupe: #C4B49A;
+    --bronze: #9A7D5A;
+    --deep-bronze: #6B5340;
+    --charcoal: #2C2825;
+    --dark: #1A1714;
+    --accent-gold: #BFA06A;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(253,251,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,180,154,0.25);
+    transition: padding 0.3s ease;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--dark);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--bronze); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--bronze); }
+  .nav-cta {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    background: var(--charcoal);
+    padding: 0.65rem 1.6rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--bronze); }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 24px; height: 1px; background: var(--charcoal); display: block; transition: 0.3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 6rem;
+    background: var(--warm-white);
+    position: relative;
+  }
+  .hero-label {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin-bottom: 1.8rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-label::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--bronze);
+  }
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(3.2rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 2rem;
+  }
+  .hero-headline em { font-style: italic; color: var(--bronze); }
+  .hero-sub {
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: #6B6560;
+    max-width: 400px;
+    margin-bottom: 3rem;
+  }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+  .btn-primary {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+    color: var(--warm-white);
+    background: var(--dark);
+    padding: 1rem 2.4rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--bronze); }
+  .btn-ghost {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+    color: var(--charcoal);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.6rem;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--bronze); }
+  .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+  .btn-ghost:hover::after { transform: translateX(4px); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 4rem;
+    padding-top: 2.5rem; border-top: 1px solid var(--sand);
+  }
+  .stat-num {
+    font-family: var(--serif); font-size: 2.2rem; font-weight: 400; color: var(--dark);
+  }
+  .stat-label {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--taupe); margin-top: 0.2rem;
+  }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+  }
+  .hero-img-wrap {
+    width: 100%; height: 100%;
+    position: relative;
+  }
+  .hero-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .hero-badge {
+    position: absolute; bottom: 2.5rem; left: -2rem;
+    background: var(--warm-white);
+    padding: 1.4rem 1.8rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    min-width: 200px;
+  }
+  .hero-badge-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); }
+  .hero-badge-text { font-family: var(--serif); font-size: 1.1rem; color: var(--dark); margin-top: 0.3rem; }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--dark); color: var(--cream); overflow: hidden;
+    padding: 1.1rem 0; white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex; gap: 0; animation: marquee 28s linear infinite;
+  }
+  .marquee-item {
+    font-family: var(--serif); font-size: 0.9rem; font-style: italic; font-weight: 300;
+    letter-spacing: 0.08em; padding: 0 2.5rem; border-right: 1px solid rgba(255,255,255,0.15);
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SERVICES ── */
+  .section { padding: 7rem 6rem; }
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4.5rem;
+  }
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--bronze);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--bronze); }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300;
+    line-height: 1.2; color: var(--dark);
+  }
+  .section-title em { font-style: italic; color: var(--bronze); }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .service-card {
+    background: var(--cream); padding: 2.8rem 2.4rem; position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card:hover { background: var(--dark); }
+  .service-num {
+    font-family: var(--serif); font-size: 3.5rem; font-weight: 300; color: var(--sand);
+    line-height: 1; margin-bottom: 1.5rem; transition: color 0.3s;
+  }
+  .service-card:hover .service-num { color: rgba(255,255,255,0.12); }
+  .service-name {
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--dark);
+    margin-bottom: 1rem; transition: color 0.3s;
+  }
+  .service-card:hover .service-name { color: var(--cream); }
+  .service-desc {
+    font-size: 0.82rem; line-height: 1.8; color: #7A7268; transition: color 0.3s;
+  }
+  .service-card:hover .service-desc { color: var(--taupe); }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 2rem;
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--bronze); text-decoration: none; transition: color 0.3s;
+  }
+  .service-link::after { content: '→'; transition: transform 0.2s; }
+  .service-link:hover::after { transform: translateX(4px); }
+  .service-card:hover .service-link { color: var(--accent-gold); }
+
+  /* ── PORTFOLIO ── */
+  .portfolio { padding: 7rem 0; background: var(--cream); }
+  .portfolio .section-header { padding: 0 6rem; }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: 380px 280px;
+    gap: 4px;
+    margin-top: 3rem;
+  }
+  .port-item {
+    position: relative; overflow: hidden; cursor: pointer;
+  }
+  .port-item:first-child { grid-row: 1 / 3; }
+  .port-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+    display: block;
+  }
+  .port-item:hover img { transform: scale(1.04); }
+  .port-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,23,20,0.75) 0%, transparent 55%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.8rem;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .port-item:hover .port-overlay { opacity: 1; }
+  .port-name { font-family: var(--serif); font-size: 1.2rem; color: #fff; font-weight: 400; }
+  .port-type { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); margin-top: 0.3rem; }
+
+  /* ── PROCESS ── */
+  .process { padding: 7rem 6rem; }
+  .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 3rem; margin-top: 4rem; }
+  .step { position: relative; }
+  .step::after {
+    content: ''; position: absolute; top: 1.6rem; left: calc(100% - 1rem);
+    width: calc(100% - 1rem); height: 1px; background: var(--sand);
+  }
+  .step:last-child::after { display: none; }
+  .step-num {
+    font-family: var(--serif); font-size: 0.9rem; font-weight: 400; color: var(--bronze);
+    letter-spacing: 0.1em; margin-bottom: 1.2rem;
+  }
+  .step-title {
+    font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--dark);
+    margin-bottom: 0.8rem;
+  }
+  .step-desc { font-size: 0.82rem; line-height: 1.8; color: #7A7268; }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 600px;
+    background: var(--dark);
+  }
+  .about-img { position: relative; overflow: hidden; }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; display: block; }
+  .about-content {
+    padding: 6rem 5rem; display: flex; flex-direction: column; justify-content: center;
+  }
+  .about-content .section-label { color: var(--accent-gold); }
+  .about-content .section-label::before { background: var(--accent-gold); }
+  .about-content .section-title { color: var(--cream); }
+  .about-content .section-title em { color: var(--accent-gold); }
+  .about-body { font-size: 0.88rem; line-height: 1.9; color: var(--taupe); margin-top: 1.8rem; max-width: 440px; }
+  .about-body + .about-body { margin-top: 1rem; }
+  .about-sign {
+    font-family: var(--serif); font-size: 2rem; font-style: italic; color: var(--cream);
+    margin-top: 2.5rem;
+  }
+  .about-role { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); margin-top: 0.4rem; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { padding: 7rem 6rem; background: var(--cream); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 4rem; }
+  .testi-card {
+    background: var(--warm-white); padding: 2.5rem; position: relative;
+    border-left: 2px solid var(--bronze);
+  }
+  .testi-quote {
+    font-family: var(--serif); font-size: 1.1rem; font-style: italic; font-weight: 300;
+    line-height: 1.7; color: var(--charcoal); margin-bottom: 1.8rem;
+  }
+  .testi-author { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); }
+  .testi-project { font-size: 0.72rem; color: var(--taupe); margin-top: 0.25rem; }
+  .testi-stars { color: var(--accent-gold); font-size: 0.75rem; margin-bottom: 1.2rem; letter-spacing: 0.1em; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--bronze);
+    padding: 5rem 6rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cta-text .section-label { color: rgba(253,251,248,0.7); }
+  .cta-text .section-label::before { background: rgba(253,251,248,0.7); }
+  .cta-title {
+    font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300;
+    color: var(--warm-white); line-height: 1.2; max-width: 500px;
+  }
+  .btn-light {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; font-family: var(--sans);
+    color: var(--dark); background: var(--warm-white);
+    padding: 1rem 2.4rem; text-decoration: none; white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .btn-light:hover { background: var(--cream); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); color: var(--taupe);
+    padding: 5rem 6rem 2.5rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+  .footer-brand .nav-logo { color: var(--cream); font-size: 1.3rem; }
+  .footer-tagline { font-size: 0.82rem; line-height: 1.8; color: #6B6560; margin-top: 1rem; max-width: 260px; }
+  .footer-socials { display: flex; gap: 1rem; margin-top: 1.5rem; }
+  .social-link {
+    width: 36px; height: 36px; border: 1px solid #3A3632;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--taupe); text-decoration: none; font-size: 0.75rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-link:hover { border-color: var(--bronze); color: var(--bronze); }
+  .footer-col h4 {
+    font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--cream); margin-bottom: 1.4rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul a { font-size: 0.82rem; color: #6B6560; text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--taupe); }
+  .footer-bottom {
+    border-top: 1px solid #2C2825; padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: 0.75rem; color: #4A4540; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .section { padding: 5rem 3rem; }
+    .hero-left { padding: 5rem 3rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .port-item:first-child { grid-row: auto; }
+    .portfolio .section-header { padding: 0 3rem; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .step::after { display: none; }
+    .testi-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .cta-banner { flex-direction: column; gap: 2rem; text-align: center; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: var(--dark); z-index: 200;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.2rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--cream); text-decoration: none; font-family: var(--serif);
+    }
+    .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { height: 55vw; }
+    .hero-badge { left: 1rem; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .section { padding: 4rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; grid-template-rows: 260px; }
+    .portfolio .section-header { padding: 0 1.5rem; }
+    .process-steps { grid-template-columns: 1fr; gap: 2rem; }
+    .about { grid-template-columns: 1fr; }
+    .about-img { height: 55vw; }
+    .about-content { padding: 3rem 1.5rem; }
+    .testimonials { padding: 4rem 1.5rem; }
+    .cta-banner { padding: 3.5rem 1.5rem; }
+    footer { padding: 4rem 1.5rem 2rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
+  <a href="#process" onclick="closeMobile()">Process</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SAINI <span>INTERIORS</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book Consultation</a>
+  <button class="hamburger" onclick="openMobile()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-label">Award-Winning Studio — Est. 2009</div>
+    <h1 class="hero-headline">
+      Design that<br><em>breathes life</em><br>into space
+    </h1>
+    <p class="hero-sub">
+      We craft interiors that are deeply personal — spaces where beauty and function exist in perfect dialogue, reflecting the soul of those who inhabit them.
+    </p>
+    <div class="hero-actions">
+      <a href="#portfolio" class="btn-primary">View Our Work</a>
+      <a href="#process" class="btn-ghost">Our Process</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">240+</div><div class="stat-label">Projects Completed</div></div>
+      <div><div class="stat-num">15</div><div class="stat-label">Years of Craft</div></div>
+      <div><div class="stat-num">12</div><div class="stat-label">Design Awards</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=80" alt="Luxury living room interior designed by Maison Élara">
+      <div class="hero-badge">
+        <div class="hero-badge-label">Featured Project</div>
+        <div class="hero-badge-text">The Crescent Villa, Dubai</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Residential Design</span>
+    <span class="marquee-item">Commercial Spaces</span>
+    <span class="marquee-item">Luxury Hospitality</span>
+    <span class="marquee-item">Space Planning</span>
+    <span class="marquee-item">Bespoke Furniture</span>
+    <span class="marquee-item">Art Curation</span>
+    <span class="marquee-item">Renovation & Styling</span>
+    <span class="marquee-item">Concept Development</span>
+    <span class="marquee-item">Residential Design</span>
+    <span class="marquee-item">Commercial Spaces</span>
+    <span class="marquee-item">Luxury Hospitality</span>
+    <span class="marquee-item">Space Planning</span>
+    <span class="marquee-item">Bespoke Furniture</span>
+    <span class="marquee-item">Art Curation</span>
+    <span class="marquee-item">Renovation & Styling</span>
+    <span class="marquee-item">Concept Development</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Our <em>specialisms</em></h2>
+    </div>
+    <a href="#contact" class="btn-ghost">All Services</a>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <h3 class="service-name">Residential Interiors</h3>
+      <p class="service-desc">From intimate apartments to sprawling villas, we transform homes into personal sanctuaries that reflect your lifestyle and aesthetic vision.</p>
+      <a href="#" class="service-link">Explore</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <h3 class="service-name">Commercial Design</h3>
+      <p class="service-desc">We create workplaces and retail environments that inspire productivity, attract clientele, and embody your brand identity at every turn.</p>
+      <a href="#" class="service-link">Explore</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <h3 class="service-name">Luxury Hospitality</h3>
+      <p class="service-desc">Boutique hotels, restaurants, and spas that deliver an unforgettable guest experience through artful design and considered detail.</p>
+      <a href="#" class="service-link">Explore</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <h3 class="service-name">Space Planning</h3>
+      <p class="service-desc">Strategic layout optimisation that balances flow, function, and beauty — ensuring every square metre works beautifully for you.</p>
+      <a href="#" class="service-link">Explore</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <h3 class="service-name">Furniture & Art</h3>
+      <p class="service-desc">Bespoke furniture curation and art advisory services, sourcing unique pieces from global artisans and established galleries.</p>
+      <a href="#" class="service-link">Explore</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <h3 class="service-name">Renovation Styling</h3>
+      <p class="service-desc">Full-scope renovation management — from concept to completion — including materials, finishes, contractor coordination and final styling.</p>
+      <a href="#" class="service-link">Explore</a>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-title">Our <em>portfolio</em></h2>
+    </div>
+    <a href="#" class="btn-ghost">View All Projects</a>
+  </div>
+  <div class="portfolio-grid reveal">
+    <div class="port-item">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Modern minimalist living room - The Park Residence">
+      <div class="port-overlay">
+        <div class="port-name">The Park Residence</div>
+        <div class="port-type">Residential · Mumbai</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&q=80" alt="Scandinavian bedroom interior - Nordic Loft">
+      <div class="port-overlay">
+        <div class="port-name">Nordic Loft</div>
+        <div class="port-type">Residential · Stockholm</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=700&q=80" alt="Modern kitchen design - The Kensington">
+      <div class="port-overlay">
+        <div class="port-name">The Kensington</div>
+        <div class="port-type">Residential · London</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img src="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?w=700&q=80" alt="Luxury hotel lobby design - Aura Boutique Hotel">
+      <div class="port-overlay">
+        <div class="port-name">Aura Boutique Hotel</div>
+        <div class="port-type">Hospitality · Jaipur</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80" alt="Contemporary office interior - Zenith HQ">
+      <div class="port-overlay">
+        <div class="port-name">Zenith HQ</div>
+        <div class="port-type">Commercial · Dubai</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-header">
+    <div>
+      <div class="section-label">How We Work</div>
+      <h2 class="section-title">Our <em>process</em></h2>
+    </div>
+  </div>
+  <div class="process-steps reveal">
+    <div class="step">
+      <div class="step-num">Step 01</div>
+      <h3 class="step-title">Discovery</h3>
+      <p class="step-desc">We begin with a deep conversation — understanding your lifestyle, aspirations, aesthetic references, and practical needs before a single sketch is drawn.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 02</div>
+      <h3 class="step-title">Concept Design</h3>
+      <p class="step-desc">Our designers develop mood boards, spatial layouts, and material palettes that translate your vision into a coherent, considered design direction.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 03</div>
+      <h3 class="step-title">Development</h3>
+      <p class="step-desc">From 3D renders to detailed drawings, we refine every element — furniture, lighting, textiles, and finishes — ensuring perfect harmony across the space.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 04</div>
+      <h3 class="step-title">Realisation</h3>
+      <p class="step-desc">We manage every aspect of delivery — sourcing, installation, contractor oversight, and final styling — handing over a space that exceeds expectations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1555636222-cae831e670b3?w=800&q=80" alt="Élara Montserrat - Founder and Lead Designer">
+  </div>
+  <div class="about-content">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">Design is<br><em>intentional</em> living</h2>
+    <p class="about-body">Founded in 2009 by Lokesh Saini, our studio was born from a belief that exceptional design is not a luxury — it is a necessity for a life well-lived. Every project we undertake is an act of deep listening and creative translation.</p>
+    <p class="about-body">Our team of 18 designers, architects, and craftspeople bring a diversity of perspectives united by a singular commitment: spaces that are beautiful, liveable, and enduring.</p>
+    <div class="about-sign">Lokesh Saini</div>
+    <div class="about-role">Founder & Creative Director</div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Client Words</div>
+      <h2 class="section-title">What they <em>say</em></h2>
+    </div>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★ ★ ★ ★ ★</div>
+      <p class="testi-quote">"Saini Interiors didn't just design our home — they understood us. Every detail reflects our personality in ways we couldn't have articulated ourselves."</p>
+      <div class="testi-author">Priya & Rohan Mehta</div>
+      <div class="testi-project">The Park Residence, Mumbai</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★ ★ ★ ★ ★</div>
+      <p class="testi-quote">"The studio transformed our boutique hotel into an experience guests travel specifically to enjoy. Bookings increased 40% in the first quarter after the redesign."</p>
+      <div class="testi-author">Arjun Singhania</div>
+      <div class="testi-project">Aura Boutique Hotel, Jaipur</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★ ★ ★ ★ ★</div>
+      <p class="testi-quote">"Working with Lokesh's team was effortless. Their process is meticulous, communication is superb, and the final result was beyond anything we imagined possible."</p>
+      <div class="testi-author">Catherine DuBois</div>
+      <div class="testi-project">Private Residence, London</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-text">
+    <div class="section-label">Start Your Journey</div>
+    <h2 class="cta-title">Ready to transform your space into something extraordinary?</h2>
+  </div>
+  <a href="#contact" class="btn-light">Book a Free Consultation</a>
+</div>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="background: var(--cream);">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's <em>begin</em></h2>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;" class="reveal">
+    <div>
+      <p style="font-size: 0.88rem; line-height: 1.9; color: #7A7268; margin-bottom: 2.5rem;">Whether you have a fully formed vision or simply know you want something to change, we'd love to hear from you. Complete the form and we'll be in touch within 24 hours.</p>
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <div>
+          <div style="font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.4rem;">Studio Address</div>
+          <div style="font-family: var(--serif); font-size: 1rem; color: var(--dark);">14 Rambagh Palace Road, C-Scheme, Jaipur 302001, India</div>
+        </div>
+        <div>
+          <div style="font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.4rem;">Email</div>
+          <div style="font-family: var(--serif); font-size: 1rem; color: var(--dark);">lokeshsaini8214@gmail.com</div>
+        </div>
+        <div>
+          <div style="font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.4rem;">Phone</div>
+          <div style="font-family: var(--serif); font-size: 1rem; color: var(--dark);">+91 92573 23422</div>
+        </div>
+      </div>
+    </div>
+    <form onsubmit="handleSubmit(event)" style="display: flex; flex-direction: column; gap: 1.2rem;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div>
+          <label style="display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem;">First Name</label>
+          <input type="text" placeholder="Priya" required style="width:100%; padding: 0.85rem 1rem; border: 1px solid var(--sand); background: var(--warm-white); font-family: var(--sans); font-size: 0.85rem; color: var(--dark); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--bronze)'" onblur="this.style.borderColor='var(--sand)'">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem;">Last Name</label>
+          <input type="text" placeholder="Sharma" required style="width:100%; padding: 0.85rem 1rem; border: 1px solid var(--sand); background: var(--warm-white); font-family: var(--sans); font-size: 0.85rem; color: var(--dark); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--bronze)'" onblur="this.style.borderColor='var(--sand)'">
+        </div>
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem;">Email Address</label>
+        <input type="email" placeholder="you@example.com" required style="width:100%; padding: 0.85rem 1rem; border: 1px solid var(--sand); background: var(--warm-white); font-family: var(--sans); font-size: 0.85rem; color: var(--dark); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--bronze)'" onblur="this.style.borderColor='var(--sand)'">
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem;">Project Type</label>
+        <select style="width:100%; padding: 0.85rem 1rem; border: 1px solid var(--sand); background: var(--warm-white); font-family: var(--sans); font-size: 0.85rem; color: var(--dark); outline: none; appearance: none;">
+          <option>Residential Interior</option>
+          <option>Commercial Design</option>
+          <option>Hospitality Project</option>
+          <option>Renovation & Styling</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem;">Tell Us About Your Project</label>
+        <textarea rows="4" placeholder="Describe your space, vision, and any specific requirements..." style="width:100%; padding: 0.85rem 1rem; border: 1px solid var(--sand); background: var(--warm-white); font-family: var(--sans); font-size: 0.85rem; color: var(--dark); outline: none; resize: vertical; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--bronze)'" onblur="this.style.borderColor='var(--sand)'"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="align-self: flex-start;" id="submitBtn">Send Enquiry</button>
+      <div id="formMsg" style="display:none; font-size:0.82rem; color: var(--bronze); font-family: var(--serif); font-style: italic;"></div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">SAINI <span style="color:var(--bronze)">INTERIORS</span></a>
+      <p class="footer-tagline">An award-winning interior design studio crafting exceptional spaces across India and beyond, since 2009.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">pi</a>
+        <a href="#" class="social-link">be</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Awards & Press</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Residential</a></li>
+        <li><a href="#">Commercial</a></li>
+        <li><a href="#">Hospitality</a></li>
+        <li><a href="#">Furniture & Art</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Studio Visit</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Saini Interiors. All rights reserved.</div>
+    <div class="footer-copy">Privacy Policy · Terms of Service</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => obs.observe(el));
+
+  // Nav scroll behavior
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '0.9rem 4rem' : '1.4rem 4rem';
+  });
+
+  // Contact form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('formMsg');
+    btn.textContent = 'Sending…';
+    btn.style.opacity = '0.6';
+    setTimeout(() => {
+      btn.textContent = 'Sent ✓';
+      btn.style.background = 'var(--bronze)';
+      msg.style.display = 'block';
+      msg.textContent = 'Thank you — we\'ll be in touch within 24 hours.';
+      e.target.reset();
+    }, 1200);
+  }
+</script>
+</body>
+</html>
